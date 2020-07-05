@@ -1,11 +1,14 @@
+from datasaver.modal import Books
+
+
 class Service(object):
     def getEvent(self, id):
         raise NotImplementedError("")
 
-    def insertEvent(self):
+    def insertEvent(self, event):
         raise NotImplementedError("")
 
-    def updateEvent(self):
+    def updateEvent(self, event):
         raise NotImplementedError("")
 
 
@@ -20,15 +23,15 @@ class DataArchiver(Archival):
 
 
 class DataSaverService(Service):
-    def __init__(self, archiver):
+    def __init__(self, archiver, conn):
         self.archiver = archiver
-        # create db connection here
+        self.conn = conn
 
     def getEvent(self, id):
-        pass
+        return Books.getBook(id)
 
-    def insertEvent(self):
-        pass
+    def insertEvent(self, event):
+        event.save(self.conn)
 
     def updateEvent(self):
         pass
